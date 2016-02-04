@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Business World</title>
+		<link rel="stylesheet" href="css/provided/bootstrap.min.css">
+		<link rel="stylesheet" href="css/provided/world.css">        
+	</head>
+	<body>
+		<div class="hero-unit">		
+			<h1>Welcome to our Business World!</h1>
+			<p>Where companies can be created, floated, bankrupted and merged</p>
+		</div>
+		<div class="world" id="world">
+			<!-- Companies get added here -->
+		</div>
+		<ul class="controls">
+			<li>
+				<label for="nameInput">Create New Private Company</label>
+				<p>This should create a new Private Company with a DOM footprint matching the template provided. It's name should be set using the text input below.</p>
+				<div class="input-append">
+					<input id="nameInput" placeholder="Business Name" size="16" type="text">
+					<button class="btn btn-inverse" id="createCompanyBtn" type="button">Create!</button>
+				</div>
+			</li>
+			<li>
+				<label>Bankrupt a Company</label>
+				<p>This chooses a random Company and makes it bankrupt. You must add a class <code>bankrupt</code> to the Company's DOM node. Furthermore, this company may no longer take part in any business activities.</p>
+				<button class="btn btn-inverse" id="bankruptBtn" type="button">Bankrupt Company</button>
+			</li>
+			<li>
+				<label>Add a product to a random private Company</label>
+				<p>This should pick a random private company and add a random product to it. An array of products can be found inside the JSON file under in <code>data</code> directory.</p>
+				<button class="btn btn-inverse" id="addProductBtn" type="button">Add Product</button>
+			</li>
+			<li>
+				<label>Float a private Company</label>
+				<p>Pick a random Private Company and change it to a Public Floated company. A Public Floated Company can be displayed by adding the <code>public</code> class to it's DOM node</p>
+				<button class="btn btn-inverse" id="floatRandomBtn" type="button">Float Random Private Company</button>
+			</li>
+			<li>
+				<label>Encourage Mergers between Public Floated Companies</label>
+				<p>Pick two Public Floated Companies and merge them together. They should have their offices, products and names combined. 
+					The company with the most products should acquire the smaller company.</p>
+				<button class="btn btn-inverse" id="encourageMergersBtn" type="button">Encourage Mergers</button>
+			</li>
+		</ul>
+        <script src="js/vendor/require.js"></script>
+        <script type="text/javascript">
+            require(['./js/common'], function (common) {
+              require(['app/main']);
+            });
+        </script>
+		<script src="data/products.json"></script>
+	</body>
+</html>

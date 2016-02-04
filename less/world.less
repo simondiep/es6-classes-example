@@ -1,0 +1,136 @@
+@import "mixins";
+
+@activeBackground: #888a85;
+@publicWindows: yellow;
+@privateWindows: lighten(@activeBackground, 10%);
+
+@bankruptBackground: darken(@activeBackground, 20%);
+@bankruptWindows: darken(red, 10%);
+
+body {
+	width: 960px;
+	margin: 0 auto;
+}
+
+.world {
+	border: 1px solid black;
+	width: 100%;
+	min-height: 100px;
+	.box-shadow();
+	margin: 20px 0;
+	vertical-align: bottom;
+	.company {
+		display: inline-block;
+		width: 100px;
+		min-height: 100px;
+		margin: 10px;
+		background: @activeBackground;
+		font-size: 10px;
+		box-shadow: 3px 3px 10px black;
+		vertical-align: bottom;
+		.name {
+			margin-top: 30px;
+			padding: 0 5px;
+			display: block;
+			text-align: center;
+			font-weight: bold;
+			font-size: 12px;
+			line-height: 13px;
+		}
+		.assets {
+			margin-top: 10px;
+			li {
+				line-height: 12px;
+			}
+		}
+		&:before {
+			margin-left: 7px;
+			width: 10px;
+			height: 10px;
+			content: '';
+			background: @privateWindows;
+			display: inline-block;
+			box-shadow: 0 0 2px lighten(@privateWindows, 10%),
+						15px 0 @privateWindows, 15px 0 2px lighten(@privateWindows, 10%),
+						30px 0 @privateWindows, 30px 0 2px lighten(@privateWindows, 10%),
+						45px 0 @privateWindows, 45px 0 2px lighten(@privateWindows, 10%),
+						60px 0 @privateWindows, 60px 0 2px lighten(@privateWindows, 10%),
+						75px 0 @privateWindows, 75px 0 2px lighten(@privateWindows, 10%),
+						0 15px @privateWindows, 0 15px 2px lighten(@privateWindows, 10%),
+						15px 15px @privateWindows, 15px 15px 2px lighten(@privateWindows, 10%),
+						30px 15px @privateWindows, 30px 15px 2px lighten(@privateWindows, 10%),
+						45px 15px @privateWindows, 45px 15px 2px lighten(@privateWindows, 10%),
+						60px 15px @privateWindows, 60px 15px 2px lighten(@privateWindows, 10%),
+						75px 15px @privateWindows, 75px 15px 2px lighten(@privateWindows, 10%),
+						0 30px @privateWindows, 0 30px 2px lighten(@privateWindows, 10%),
+						15px 30px @privateWindows, 15px 30px 2px lighten(@privateWindows, 10%),
+						30px 30px @privateWindows, 30px 30px 2px lighten(@privateWindows, 10%),
+						45px 30px @privateWindows, 45px 30px 2px lighten(@privateWindows, 10%),
+						60px 30px @privateWindows, 60px 30px 2px lighten(@privateWindows, 10%),
+						75px 30px @privateWindows, 75px 30px 2px lighten(@privateWindows, 10%);
+
+		}
+	}
+	.company.public:before {
+		background: @publicWindows;
+		box-shadow: 0 0 2px lighten(@publicWindows, 10%),
+					15px 0 @publicWindows, 15px 0 2px lighten(@publicWindows, 10%),
+					30px 0 @publicWindows, 30px 0 2px lighten(@publicWindows, 10%),
+					45px 0 @publicWindows, 45px 0 2px lighten(@publicWindows, 10%),
+					60px 0 @publicWindows, 60px 0 2px lighten(@publicWindows, 10%),
+					75px 0 @publicWindows, 75px 0 2px lighten(@publicWindows, 10%),
+					0 15px @publicWindows, 0 15px 2px lighten(@publicWindows, 10%),
+					15px 15px @publicWindows, 15px 15px 2px lighten(@publicWindows, 10%),
+					30px 15px @publicWindows, 30px 15px 2px lighten(@publicWindows, 10%),
+					45px 15px @publicWindows, 45px 15px 2px lighten(@publicWindows, 10%),
+					60px 15px @publicWindows, 60px 15px 2px lighten(@publicWindows, 10%),
+					75px 15px @publicWindows, 75px 15px 2px lighten(@publicWindows, 10%),
+					0 30px @publicWindows, 0 30px 2px lighten(@publicWindows, 10%),
+					15px 30px @publicWindows, 15px 30px 2px lighten(@publicWindows, 10%),
+					30px 30px @publicWindows, 30px 30px 2px lighten(@publicWindows, 10%),
+					45px 30px @publicWindows, 45px 30px 2px lighten(@publicWindows, 10%),
+					60px 30px @publicWindows, 60px 30px 2px lighten(@publicWindows, 10%),
+					75px 30px @publicWindows, 75px 30px 2px lighten(@publicWindows, 10%);
+
+	}
+	.company.bankrupt {
+		background: @bankruptBackground;
+		position: relative;
+		.assets {
+			margin-top: 10px;
+			li {
+				line-height: 12px;
+			}
+		}
+		&:before {
+			margin-left: 7px;
+			width: 10px;
+			height: 10px;
+			content: '';
+			background: @bankruptWindows;
+			display: inline-block;
+			box-shadow: 0 0 2px lighten(@bankruptWindows, 10%),
+						15px 0 @bankruptWindows, 15px 0 2px lighten(@bankruptWindows, 10%),
+						45px 0 @bankruptWindows, 45px 0 2px lighten(@bankruptWindows, 10%),
+						75px 0 @bankruptWindows, 75px 0 2px lighten(@bankruptWindows, 10%),
+						15px 15px @bankruptWindows, 15px 15px 2px lighten(@bankruptWindows, 10%),
+						30px 15px @bankruptWindows, 30px 15px 2px lighten(@bankruptWindows, 10%),
+						75px 15px @bankruptWindows, 75px 15px 2px lighten(@bankruptWindows, 10%),
+						0 30px @bankruptWindows, 0 30px 2px lighten(@bankruptWindows, 10%),
+						15px 30px @bankruptWindows, 15px 30px 2px lighten(@bankruptWindows, 10%),
+						30px 30px @bankruptWindows, 30px 30px 2px lighten(@bankruptWindows, 10%),
+						60px 30px @bankruptWindows, 60px 30px 2px lighten(@bankruptWindows, 10%);
+
+		}
+	}
+}
+
+ul.controls {
+	list-style: none;
+	li {
+		margin-bottom: 20px;
+		label {
+			font-weight: bold;
+		}
+	}
+}

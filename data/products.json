@@ -1,0 +1,16 @@
+productList = [
+	"HR",
+	"Research",
+	"Marketing",
+	"Risk Analysis",
+	"Training",
+	"Sales",
+	"Acquisitions",
+	"Charity work",
+	"Health Care",
+	"Prostitution",
+	"Money Laundering",
+	"Racketeering",
+	"Smuggling",
+	"Human Trafficking"
+];
