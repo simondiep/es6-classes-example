@@ -1,9 +1,9 @@
 define([
-  'app/business-world'
+    'business-world',
+    'business-world-view'
 ],
 
-function (BusinessWorld) {
+function (BusinessWorld, BusinessWorldView) {
     'use strict';
-    new BusinessWorld();
-
+    new BusinessWorld(new BusinessWorldView());
 });

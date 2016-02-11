@@ -1,5 +1,5 @@
 define([
-  'jquery'
+    'jquery'
 ],
 
 function ($) {
@@ -12,17 +12,6 @@ function ($) {
     *   Handles all of the BusinessWorld view functionality
     */
     class BusinessWorldView {
-    
-        constructor(businessWorld) {
-            this.companyList = businessWorld.companyList;
-        
-            // Hook up button click handlers
-            $("#createCompanyBtn").click(function() {businessWorld.createCompany(); }); 
-            $("#bankruptBtn").click(function() {businessWorld.bankruptRandomCompany(); }); 
-            $("#addProductBtn").click(function() {businessWorld.addProductToRandomCompany(); });
-            $("#floatRandomBtn").click(function() {businessWorld.makeRandomCompanyPublic(); });
-            $("#encourageMergersBtn").click(function() {businessWorld.mergeTwoRandomPublicCompanies(); });
-        }
 
         clearCompanyNameInputValue() {
             $('#nameInput').val('');
@@ -33,13 +22,13 @@ function ($) {
         }
         
         // Take the current company list and update the DOM
-        renderCompanyList() {
+        renderCompanyList(companyList) {
             // Remove all rendered companies
             var worldDiv = document.getElementById("world");
             while (worldDiv.firstChild) {
                 worldDiv.removeChild(worldDiv.firstChild);
             }
-            this.companyList.forEach(function(company) {
+            companyList.forEach(function(company) {
                 var companyAsHtml = COMPANY_HTML_TEMPLATE;
                 companyAsHtml = companyAsHtml.replace('companyNamePlaceholder', company.name);
                 if(company.state) {
@@ -56,6 +45,21 @@ function ($) {
             });
         }
     
+        setAddProductClickHandler(handler) {
+            $("#addProductBtn").click(handler); 
+        }
+        setBankruptCompanyClickHandler(handler) {
+            $("#bankruptBtn").click(handler); 
+        }
+        setCreateCompanyClickHandler(handler) {
+            $("#createCompanyBtn").click(handler); 
+        }
+        setEncourageMergersClickHandler(handler) {
+            $("#encourageMergersBtn").click(handler); 
+        }
+        setFloatCompanyClickHandler(handler) {
+            $("#floatRandomBtn").click(handler); 
+        }
     }
 
     return BusinessWorldView;

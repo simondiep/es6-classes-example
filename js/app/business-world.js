@@ -1,10 +1,9 @@
 define([
-  'app/business-world-view',
-  'app/company',
-  'app/random-company-selector'
+    'company',
+    'random-company-selector'
 ],
 
-function (BusinessWorldView, Company, RandomCompanySelector) {
+function (Company, RandomCompanySelector) {
 'use strict';
 
     /**
@@ -12,17 +11,18 @@ function (BusinessWorldView, Company, RandomCompanySelector) {
     */
     class BusinessWorld {
 
-        constructor() {
+        constructor(businessWorldView) {
             this.companyList = [];
-            this.businessWorldView = new BusinessWorldView(this);
+            this.businessWorldView = businessWorldView;
             this.randomCompanySelector = new RandomCompanySelector(this.companyList);
+            this._addButtonClickHandlers(this.businessWorldView);
         }
         
         createCompany() {
-            var newCompanyName = this.businessWorldView.getCompanyNameInputValue();
+            let newCompanyName = this.businessWorldView.getCompanyNameInputValue();
             if(newCompanyName) {
                 this.companyList.push(new Company(newCompanyName));
-                this.businessWorldView.renderCompanyList();
+                this.businessWorldView.renderCompanyList(this.companyList);
                 // Clear input
                 this.businessWorldView.clearCompanyNameInputValue();
             } else {
@@ -33,10 +33,10 @@ function (BusinessWorldView, Company, RandomCompanySelector) {
 
         // Choose a random non-bankrupt company and bankrupt it
         bankruptRandomCompany() {
-            var company = this.randomCompanySelector.getNotBankruptCompany();
+            let company = this.randomCompanySelector.getNotBankruptCompany();
             if(company) {
                 company.goBankrupt();
-                this.businessWorldView.renderCompanyList();
+                this.businessWorldView.renderCompanyList(this.companyList);
             } else {
                 console.log('Could not bankrupt a company.  No non-bankrupt companies exist.');
             }
@@ -44,12 +44,12 @@ function (BusinessWorldView, Company, RandomCompanySelector) {
 
         // Add a product to a random non-bankrupt company
         addProductToRandomCompany() {
-            var company = this.randomCompanySelector.getNotBankruptCompany();
+            let company = this.randomCompanySelector.getNotBankruptCompany();
             if(company) {
                 // TODO should we check if a product already exists in company?
                 company.addProduct(this.randomCompanySelector.getProduct());
                 
-                this.businessWorldView.renderCompanyList();
+                this.businessWorldView.renderCompanyList(this.companyList);
             } else {
                 console.log('Could not add a product to a company.  No non-bankrupt companies exist.');
             }
@@ -57,19 +57,19 @@ function (BusinessWorldView, Company, RandomCompanySelector) {
 
         // Choose a random private company and make it public it
         makeRandomCompanyPublic(){
-            var company = this.randomCompanySelector.getPrivateCompany();
+            let company = this.randomCompanySelector.getPrivateCompany();
             if(company) {
                 company.goPublic();
-                this.businessWorldView.renderCompanyList();
+                this.businessWorldView.renderCompanyList(this.companyList);
             } else {
                 console.log('Could not add a product to a company.  No private companies exist.');
             }
         }
 
         mergeTwoRandomPublicCompanies(){
-            var companyOne = this.randomCompanySelector.getPublicCompany();
+            let companyOne = this.randomCompanySelector.getPublicCompany();
             if(companyOne) {
-                var companyTwo = this.randomCompanySelector.getPublicCompany(companyOne.id);
+                let companyTwo = this.randomCompanySelector.getPublicCompany(companyOne.id);
                 if(companyTwo) {
                     // Find out which company has the most assets
                     if(companyOne.assets.length > companyTwo.assets.length) {
@@ -77,7 +77,7 @@ function (BusinessWorldView, Company, RandomCompanySelector) {
                     } else {
                         this._mergePublicCompanies(companyTwo, companyOne);
                     }
-                    this.businessWorldView.renderCompanyList();
+                    this.businessWorldView.renderCompanyList(this.companyList);
                 } else {
                     console.log('Unable to merge companies.  Only one public company exist');
                 }
@@ -86,16 +86,24 @@ function (BusinessWorldView, Company, RandomCompanySelector) {
             }
         } 
 
+        _addButtonClickHandlers(businessWorldView) {
+            businessWorldView.setAddProductClickHandler(this.addProductToRandomCompany.bind(this)); 
+            businessWorldView.setBankruptCompanyClickHandler(this.bankruptRandomCompany.bind(this)); 
+            businessWorldView.setCreateCompanyClickHandler(this.createCompany.bind(this)); 
+            businessWorldView.setEncourageMergersClickHandler(this.mergeTwoRandomPublicCompanies.bind(this)); 
+            businessWorldView.setFloatCompanyClickHandler(this.makeRandomCompanyPublic.bind(this));
+        }
+        
         _mergePublicCompanies(majorCompany, minorCompany) {
             // Remove both companies
-            var majorCompanyIndex = this.companyList.indexOf(majorCompany);
+            let majorCompanyIndex = this.companyList.indexOf(majorCompany);
             this.companyList.splice(majorCompanyIndex, 1);
-            var minorCompanyIndex = this.companyList.indexOf(minorCompany);
+            let minorCompanyIndex = this.companyList.indexOf(minorCompany);
             this.companyList.splice(minorCompanyIndex, 1);
             
             // Create new merged company
-            var newCompanyName = majorCompany.name + ' ' + minorCompany.name;
-            var mergedAssets = majorCompany.assets;
+            let newCompanyName = majorCompany.name + ' ' + minorCompany.name;
+            let mergedAssets = majorCompany.assets;
             if( majorCompany.assets && minorCompany.assets ) {
                 mergedAssets = majorCompany.assets.concat(minorCompany.assets);
             }

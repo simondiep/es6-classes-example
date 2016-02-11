@@ -1,6 +1,6 @@
 requirejs.config({
-  baseUrl: './js',
-  paths: {
-    'jquery': 'vendor/jquery'
-  }
+    baseUrl: './js/app',
+    paths: {
+        jquery: '../vendor/jquery'
+    }
 });
